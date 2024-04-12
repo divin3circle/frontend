@@ -1,41 +1,46 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { TweetProps, IconProps } from "@/types";
 import { Entypo, EvilIcons } from "@expo/vector-icons";
 import IconButton from "./IconButton";
+import { Link } from "expo-router";
 
 const Tweets = ({ tweet }: TweetProps) => {
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: tweet.user.image }} style={styles.userImage} />
-      <View style={styles.userContainer}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View style={{ flexDirection: "row", gap: 2 }}>
-            <Text style={styles.name}>{tweet.user.name}</Text>
-            <Text style={{ fontWeight: "400", color: "gray" }}>
-              @{tweet.user.username}
-            </Text>
-            <Text style={{ fontWeight: "400", color: "gray" }}>
-              {"\u2022"}2h
-            </Text>
+    <Link href="/tweet" asChild>
+      <Pressable style={styles.container}>
+        <Image source={{ uri: tweet.user.image }} style={styles.userImage} />
+        <View style={styles.userContainer}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={{ flexDirection: "row", gap: 2 }}>
+              <Text style={styles.name}>{tweet.user.name}</Text>
+              <Text style={{ fontWeight: "400", color: "gray" }}>
+                @{tweet.user.username}
+              </Text>
+              <Text style={{ fontWeight: "400", color: "gray" }}>
+                {"\u2022"}2h
+              </Text>
+            </View>
+            <View>
+              <Entypo name="dots-three-horizontal" size={16} color="gray" />
+            </View>
           </View>
-          <View>
-            <Entypo name="dots-three-horizontal" size={16} color="gray" />
+          <Text style={styles.content}>{tweet.content}</Text>
+          {tweet.image && (
+            <Image source={{ uri: tweet.image }} style={styles.contentImage} />
+          )}
+          <View style={styles.footer}>
+            <IconButton icon="comment" text={tweet.numberOfComments} />
+            <IconButton icon="retweet" text={tweet.numberOfRetweets} />
+            <IconButton icon="heart" text={tweet.numberOfLikes} />
+            <IconButton icon="chart" text={tweet.impressions || 0} />
+            <IconButton icon="share-apple" />
           </View>
         </View>
-        <Text style={styles.content}>{tweet.content}</Text>
-        {tweet.image && (
-          <Image source={{ uri: tweet.image }} style={styles.contentImage} />
-        )}
-        <View style={styles.footer}>
-          <IconButton icon="comment" text={tweet.numberOfComments} />
-          <IconButton icon="retweet" text={tweet.numberOfRetweets} />
-          <IconButton icon="heart" text={tweet.numberOfLikes} />
-          <IconButton icon="chart" text={tweet.impressions || 0} />
-          <IconButton icon="share-apple" />
-        </View>
-      </View>
-    </View>
+      </Pressable>
+    </Link>
   );
 };
 
