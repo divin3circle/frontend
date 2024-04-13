@@ -6,14 +6,20 @@ import tweets from "@/assets/data/tweets";
 const UserScreen = () => {
   const { id } = useGlobalSearchParams();
   const user = tweets.find((tweet) => tweet.user.id === id);
+
   if (!user) return null;
   return (
-    <View>
-      <Text>{user?.user.username}</Text>
+    <View style={{ flex: 1, alignItems: "center" }}>
       <Image
         source={{ uri: user?.user.image }}
-        style={{ width: 100, height: 100 }}
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: 50,
+          marginVertical: 20,
+        }}
       />
+      <Text>@{user?.user.username}</Text>
     </View>
   );
 };
