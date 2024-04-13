@@ -7,22 +7,24 @@ import { Link } from "expo-router";
 
 const Tweets = ({ tweet }: TweetProps) => {
   return (
-    <Link href="/tweet" asChild>
+    <Link href={`/tweet/${tweet.id}`} asChild>
       <Pressable style={styles.container}>
         <Image source={{ uri: tweet.user.image }} style={styles.userImage} />
         <View style={styles.userContainer}>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ flexDirection: "row", gap: 2 }}>
-              <Text style={styles.name}>{tweet.user.name}</Text>
-              <Text style={{ fontWeight: "400", color: "gray" }}>
-                @{tweet.user.username}
-              </Text>
-              <Text style={{ fontWeight: "400", color: "gray" }}>
-                {"\u2022"}2h
-              </Text>
-            </View>
+            <Link href={`/user/${tweet.user.id}`} asChild>
+              <Pressable style={{ flexDirection: "row", gap: 2 }}>
+                <Text style={styles.name}>{tweet.user.name}</Text>
+                <Text style={{ fontWeight: "400", color: "gray" }}>
+                  @{tweet.user.username}
+                </Text>
+                <Text style={{ fontWeight: "400", color: "gray" }}>
+                  {"\u2022"}2h
+                </Text>
+              </Pressable>
+            </Link>
             <View>
               <Entypo name="dots-three-horizontal" size={16} color="gray" />
             </View>
